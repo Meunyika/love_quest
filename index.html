@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Favorite Person ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left,#ff758c 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#ff7eb3 0%,transparent 35%),
+        linear-gradient(135deg,#160016,#3b0b2f,#170018);
+    color:white;
+    overflow:hidden;
+}
+
+.container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:650px;
+    padding:45px 30px;
+    text-align:center;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.2);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:30px;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+    animation:cardIn .8s ease;
+    position:relative;
+    z-index:5;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.heart{
+    font-size:70px;
+    animation:heartbeat 1.3s infinite;
+    margin-bottom:20px;
+}
+
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.18)}
+}
+
+h1{
+    font-size:clamp(30px,7vw,55px);
+    margin-bottom:18px;
+}
+
+h2{
+    font-size:clamp(22px,5vw,35px);
+    line-height:1.3;
+    margin-bottom:20px;
+}
+
+p{
+    color:#f7dce8;
+    font-size:17px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.name{
+    color:#ff7eb3;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+button{
+    border:none;
+    padding:15px 38px;
+    border-radius:50px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.yes{
+    background:linear-gradient(135deg,#ff416c,#ff4b8b);
+    color:white;
+    box-shadow:0 10px 30px rgba(255,65,108,.35);
+}
+
+.yes:hover{
+    transform:translateY(-5px) scale(1.05);
+}
+
+.no{
+    background:white;
+    color:#ff416c;
+    position:relative;
+}
+
+.no:hover{
+    transform:translateY(-3px);
+}
+
+.small{
+    font-size:13px;
+    opacity:.7;
+    margin-top:20px;
+}
+
+.progress{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:rgba(255,255,255,.15);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#ff4b8b;
+    transition:.5s;
+}
+
+.heart-bg{
+    position:fixed;
+    bottom:-50px;
+    font-size:20px;
+    opacity:.35;
+    animation:floatHeart linear forwards;
+    pointer-events:none;
+    z-index:1;
+}
+
+@keyframes floatHeart{
+    from{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+    20%{opacity:.5}
+    to{
+        transform:translateY(-110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+.fade{
+    animation:fade .5s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateX(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.final{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.signature{
+    margin-top:25px;
+    font-size:20px;
+    color:#ff9bc0;
+    font-weight:bold;
+}
+
+.hidden{
+    display:none;
+}
+
+#loveMeter{
+    width:100%;
+    height:12px;
+    background:rgba(255,255,255,.15);
+    border-radius:20px;
+    overflow:hidden;
+    margin:20px 0;
+}
+
+#loveFill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#ff416c,#ff9bc0);
+    transition:1s;
+}
+
+@media(max-width:500px){
+    .card{
+        padding:35px 20px;
+    }
+
+    button{
+        width:130px;
+        padding:14px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="container">
+
+    <div class="card" id="card">
+
+        <div class="heart">❤️</div>
+
+        <h1>
+            Hey <span class="name">My Love</span>...
+        </h1>
+
+        <p>
+            I made something special for you.
+            But before you continue, I need to ask you
+            a few very important questions...
+        </p>
+
+        <p>
+            Be honest. 😌
+        </p>
+
+        <div class="buttons">
+            <button class="yes" onclick="startGame()">
+                I'm Ready ❤️
+            </button>
+        </div>
+
+        <div class="small">
+            Warning: This test may cause excessive smiling 😂❤️
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const card = document.getElementById("card");
+const progressBar = document.getElementById("progressBar");
+
+let current = 0;
+let loveScore = 0;
+
+/*
+====================================================
+LOVE QUEST QUESTIONS
+====================================================
+*/
+
+const questions = [
+
+{
+    question:"Do you actually love me? ❤️",
+    yes:"I knew it! 😌❤️",
+    no:"Hmm... you better think again 😂",
+    yesScore:10
+},
+
+{
+    question:"Do I make you smile even when you're having a bad day? 🥺",
+    yes:"That's exactly what I wanted to hear. ❤️",
+    no:"Okay... I'll increase my efforts 😂",
+    yesScore:10
+},
+
+{
+    question:"Would you choose me again if you had to start all over? 💍",
+    yes:"Now you're making me emotional. 🥹❤️",
+    no:"Nice try 😂. Let's continue.",
+    yesScore:15
+},
+
+{
+    question:"Do you enjoy talking to me even when we have nothing to talk about? 😂",
+    yes:"Those random conversations are my favorite too. ❤️",
+    no:"So you don't enjoy my nonsense? 😭😂",
+    yesScore:8
+},
+
+{
+    question:"Am I one of your favorite people in this world? 🌍❤️",
+    yes:"One of? I was expecting NUMBER ONE! 😂❤️",
+    no:"We need to have a serious meeting. 😂",
+    yesScore:10
+},
+
+{
+    question:"Would you still stay with me during my difficult days? 🥺",
+    yes:"That's the kind of love I pray for. ❤️",
+    no:"Don't worry... I'll still annoy you until you say yes 😂",
+    yesScore:15
+},
+
+{
+    question:"Do you see us creating beautiful memories together? ✨",
+    yes:"Then let's make them unforgettable. ❤️",
+    no:"I'm not accepting that answer 😂",
+    yesScore:10
+},
+
+{
+    question:"Do you trust me with your heart? ❤️",
+    yes:"I promise to handle it carefully. 🥹",
+    no:"Okay... I'll earn that trust every single day.",
+    yesScore:15
+},
+
+{
+    question:"Would you miss me if I disappeared for one whole day? 👀",
+    yes:"Only one day? I'd miss you after one hour 😂❤️",
+    no:"Lies detected! 🚨😂",
+    yesScore:5
+},
+
+{
+    question:"Do you think I'm annoying sometimes? 😂",
+    yes:"At least you're honest! 😂❤️",
+    no:"Perfect. I'm clearly doing a great job 😌",
+    yesScore:5
+},
+
+{
+    question:"Would you choose us over and over again? ♾️❤️",
+    yes:"That's my favorite answer. ♾️",
+    no:"I'm going to pretend I didn't hear that 😂",
+    yesScore:15
+},
+
+{
+    question:"Do you want more memories, more laughs and more adventures with me? 🌹",
+    yes:"Then our story is only getting started. ❤️",
+    no:"I'll have to convince you properly 😂",
+    yesScore:10
+},
+
+{
+    question:"Are you ready for the final question? 👀❤️",
+    yes:"Let's do this... 😌",
+    no:"There's no escaping now 😂",
+    yesScore:5
+}
+
+];
+
+
+/*
+====================================================
+START
+====================================================
+*/
+
+function startGame(){
+
+    current = 0;
+    loveScore = 0;
+
+    showQuestion();
+
+}
+
+
+/*
+====================================================
+SHOW QUESTION
+====================================================
+*/
+
+function showQuestion(){
+
+    if(current >= questions.length){
+        showFinal();
+        return;
+    }
+
+    const q = questions[current];
+
+    card.classList.remove("fade");
+
+    void card.offsetWidth;
+
+    card.classList.add("fade");
+
+    card.innerHTML = `
+
+        <div class="heart">❤️</div>
+
+        <div style="font-size:14px;color:#ff9bc0;margin-bottom:15px;">
+            QUESTION ${current + 1} OF ${questions.length}
+        </div>
+
+        <h2>
+            ${q.question}
+        </h2>
+
+        <p id="reaction"></p>
+
+        <div class="buttons">
+
+            <button class="yes" onclick="answer(true)">
+                YES ❤️
+            </button>
+
+            <button class="no" id="noButton" onclick="answer(false)">
+                NO 😭
+            </button>
+
+        </div>
+
+        <div class="small">
+            Choose wisely... 👀
+        </div>
+    `;
+
+    updateProgress();
+
+}
+
+
+/*
+====================================================
+ANSWER
+====================================================
+*/
+
+function answer(isYes){
+
+    const q = questions[current];
+
+    const reaction = document.getElementById("reaction");
+
+    if(isYes){
+
+        loveScore += q.yesScore;
+
+        reaction.innerHTML = `
+            <span style="color:#ff9bc0;font-weight:bold;">
+                ${q.yes}
+            </span>
+        `;
+
+    }else{
+
+        reaction.innerHTML = `
+            <span style="color:#ffd6e5;">
+                ${q.no}
+            </span>
+        `;
+
+    }
+
+    setTimeout(()=>{
+
+        current++;
+
+        showQuestion();
+
+    },1200);
+
+}
+
+
+/*
+====================================================
+NO BUTTON ESCAPE
+====================================================
+*/
+
+document.addEventListener("mouseover",function(e){
+
+    if(e.target.id === "noButton"){
+
+        const button = e.target;
+
+        if(Math.random() > .45){
+
+            const x = Math.random() * 180 - 90;
+            const y = Math.random() * 100 - 50;
+
+            button.style.transform =
+                `translate(${x}px,${y}px)`;
+
+        }
+
+    }
+
+});
+
+
+/*
+====================================================
+PROGRESS
+====================================================
+*/
+
+function updateProgress(){
+
+    const percentage =
+        (current / questions.length) * 100;
+
+    progressBar.style.width = percentage + "%";
+
+}
+
+
+/*
+====================================================
+FINAL PAGE
+====================================================
+*/
+
+function showFinal(){
+
+    progressBar.style.width = "100%";
+
+    card.innerHTML = `
+
+        <div class="final">
+            💖
+        </div>
+
+        <h1>
+            You Made It!
+        </h1>
+
+        <p>
+            After answering all those questions,
+            there's something I need you to know...
+        </p>
+
+        <div id="loveMeter">
+
+            <div id="loveFill"></div>
+
+        </div>
+
+        <h2>
+            Love Level: <span id="score">0</span>%
+        </h2>
+
+        <p id="finalMessage"></p>
+
+        <div class="signature">
+            Forever yours ❤️
+        </div>
+
+        <div class="buttons">
+
+            <button class="yes" onclick="celebrate()">
+                One More Surprise 💝
+            </button>
+
+        </div>
+
+    `;
+
+    let percentage = Math.min(loveScore,100);
+
+    setTimeout(()=>{
+
+        document.getElementById("loveFill").style.width =
+            percentage + "%";
+
+        let counter = 0;
+
+        const interval = setInterval(()=>{
+
+            counter++;
+
+            document.getElementById("score").innerText =
+                counter;
+
+            if(counter >= percentage){
+
+                clearInterval(interval);
+
+            }
+
+        },20);
+
+    },500);
+
+
+    setTimeout(()=>{
+
+        document.getElementById("finalMessage").innerHTML = `
+
+            Whatever happens in life,
+            I hope you always remember that
+            you are incredibly special to me. ❤️
+
+            <br><br>
+
+            Thank you for being part of my story.
+
+            <br><br>
+
+            And honestly...
+
+            <br>
+
+            <strong>
+                I would choose you again. ❤️
+            </strong>
+
+        `;
+
+    },1200);
+
+}
+
+
+/*
+====================================================
+SURPRISE
+====================================================
+*/
+
+function celebrate(){
+
+    createConfetti();
+
+    card.innerHTML = `
+
+        <div class="final">
+            💕
+        </div>
+
+        <h1>
+            Surprise! 😭❤️
+        </h1>
+
+        <p>
+            You thought this was just a game?
+        </p>
+
+        <h2>
+            It wasn't.
+        </h2>
+
+        <p>
+            It was my little way of reminding you
+            how much you mean to me.
+        </p>
+
+        <p>
+            Every laugh.
+            <br>
+            Every conversation.
+            <br>
+            Every memory.
+            <br>
+            Every little moment.
+        </p>
+
+        <h2>
+            I choose YOU. ❤️
+        </h2>
+
+        <div class="signature">
+            — Your Favorite Person 😌❤️
+        </div>
+
+    `;
+
+}
+
+
+/*
+====================================================
+CONFETTI
+====================================================
+*/
+
+function createConfetti(){
+
+    const symbols = [
+        "❤️",
+        "💕",
+        "💖",
+        "💗",
+        "💘",
+        "✨",
+        "🥰"
+    ];
+
+    for(let i=0;i<80;i++){
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.innerText =
+            symbols[Math.floor(Math.random()*symbols.length)];
+
+        confetti.style.position = "fixed";
+
+        confetti.style.left =
+            Math.random()*100 + "vw";
+
+        confetti.style.top =
+            "-30px";
+
+        confetti.style.fontSize =
+            (15 + Math.random()*25) + "px";
+
+        confetti.style.zIndex = "999";
+
+        confetti.style.transition =
+            "transform 3s linear, opacity 3s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(()=>{
+
+            confetti.style.transform =
+                `translateY(110vh) rotate(${Math.random()*720}deg)`;
+
+            confetti.style.opacity = "0";
+
+        },50);
+
+        setTimeout(()=>{
+
+            confetti.remove();
+
+        },3200);
+
+    }
+
+}
+
+
+/*
+====================================================
+BACKGROUND HEARTS
+====================================================
+*/
+
+function createHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className = "heart-bg";
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💖",
+        "💗",
+        "💘"
+    ];
+
+    heart.innerText =
+        hearts[Math.floor(Math.random()*hearts.length)];
+
+    heart.style.left =
+        Math.random()*100 + "vw";
+
+    heart.style.animationDuration =
+        (5 + Math.random()*7) + "s";
+
+    heart.style.fontSize =
+        (12 + Math.random()*25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },12000);
+
+}
+
+setInterval(createHeart,700);
+
+</script>
+
+</body>
+</html>
