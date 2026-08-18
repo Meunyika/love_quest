@@ -95,7 +95,7 @@ You don't need to install anything.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/love-quest.git
+git clone https://github.com/Meunyika/love-quest.git
 ```
 
 ### 2. Open the project
